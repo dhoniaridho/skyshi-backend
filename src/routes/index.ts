@@ -1,3 +1,4 @@
-import { ActivitiesRouter } from '../modules/activities/activity'
+import { ActivitiesModule } from '../modules/activities'
+import { TodoModule } from '../modules/todo'
 
-export const Routes = [ActivitiesRouter]
+export const Routes = [ActivitiesModule, TodoModule]
