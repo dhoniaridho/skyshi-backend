@@ -10,4 +10,4 @@ router.post('/activity-groups', create)
 router.get('/activity-groups/:id', getOne)
 router.delete('/activity-groups/:id', deleteOne)
 
-export { router as ActivitiesRouter }
+export { router as ActivitiesModule }

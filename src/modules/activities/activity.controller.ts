@@ -26,7 +26,7 @@ export class ActivityController {
       return response(req, res).json(
         mapError(error.message),
         400,
-        'Data Gagal Divalidasi'
+        'Validation failed'
       )
     }
 
@@ -50,6 +50,7 @@ export class ActivityController {
       )
     return response(req, res).json(data)
   }
+
   async deleteOne(req: Request, res: Response) {
     // Repository
     const activity = new ActivityRepository()
@@ -62,6 +63,10 @@ export class ActivityController {
         404,
         `Activity with ID ${+req.params.id} Not Found`
       )
-    return response(req, res).json(null, 200, 'Data berhasil dihapus')
+    return response(req, res).json(
+      null,
+      200,
+      `Data with id  ${req.params.id} was deleted`
+    )
   }
 }
