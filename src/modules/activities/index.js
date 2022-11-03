@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ActivitiesModule = void 0;
+const express_1 = require("express");
+const activity_controller_1 = require("./activity.controller");
+const router = (0, express_1.Router)();
+exports.ActivitiesModule = router;
+const { getAll, create, getOne, deleteOne } = new activity_controller_1.ActivityController();
+router.get('/activity-groups', getAll);
+router.post('/activity-groups', create);
+router.get('/activity-groups/:id', getOne);
+router.delete('/activity-groups/:id', deleteOne);

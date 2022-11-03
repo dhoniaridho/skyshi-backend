@@ -1,6 +1,8 @@
 // Update with your config settings.
 
 import path from 'path'
+import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+dotenv.config({ path: '.env' })
 
 interface KnexConfig {
   [key: string]: object
@@ -8,53 +10,59 @@ interface KnexConfig {
 
 const config: KnexConfig = {
   development: {
-    client: 'mysql',
+    client: process.env.DB_CONNECTION ?? 'mysql',
     connection: {
-      host: 'localhost',
-      port: 3306,
-      database: 'ahmadridhoni',
-      user: 'root',
-      password: 'root'
+      host: process.env.DB_HOST ?? '127.0.0.1',
+      port: process.env.DB_PORT ?? '3306',
+      database: process.env.DB_DATABASE ?? 'ahmadridhoni',
+      user: process.env.DB_USERNAME ?? 'root',
+      password: process.env.DB_PASSWORD ?? 'root'
     },
     pool: {
       min: 2,
       max: 10
     },
     migrations: {
-      tableName: 'knex_migrations',
+      tableName: 'migration',
       directory: path.resolve(__dirname, 'src', 'databases', 'migrations')
     }
   },
 
   staging: {
-    client: 'mysql',
+    client: process.env.DB_CONNECTION ?? 'mysql',
     connection: {
-      database: 'my_db',
-      user: 'username',
-      password: 'password'
+      host: process.env.DB_HOST ?? '127.0.0.1',
+      port: process.env.DB_PORT ?? '3306',
+      database: process.env.DB_DATABASE ?? 'ahmadridhoni',
+      user: process.env.DB_USERNAME ?? 'root',
+      password: process.env.DB_PASSWORD ?? 'root'
     },
     pool: {
       min: 2,
       max: 10
     },
     migrations: {
-      tableName: 'knex_migrations'
+      tableName: 'migration',
+      directory: path.resolve(__dirname, 'src', 'databases', 'migrations')
     }
   },
 
   production: {
-    client: 'mysql',
+    client: process.env.DB_CONNECTION ?? 'mysql',
     connection: {
-      database: 'my_db',
-      user: 'username',
-      password: 'password'
+      host: process.env.DB_HOST ?? '127.0.0.1',
+      port: process.env.DB_PORT ?? '3306',
+      database: process.env.DB_DATABASE ?? 'ahmadridhoni',
+      user: process.env.DB_USERNAME ?? 'root',
+      password: process.env.DB_PASSWORD ?? 'root'
     },
     pool: {
       min: 2,
       max: 10
     },
     migrations: {
-      tableName: 'knex_migrations'
+      tableName: 'migration',
+      directory: path.resolve(__dirname, 'src', 'databases', 'migrations')
     }
   }
 }
