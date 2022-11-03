@@ -8,8 +8,8 @@
     "start:dev": "nodemon src/main.ts",
     "start:prod": "node dist/src/main.js",
     "build": "tsc -b",
-    "migrate:up": "pnpm knex migrate:up",
-    "migrate:down": "pnpm knex migrate:down"
+    "migrate:up": "knex migrate:up",
+    "migrate:down": "knex migrate:down"
   },
   "keywords": [],
   "author": "dhoniaridho@gmail.com",

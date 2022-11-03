@@ -1,6 +1,7 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 import { Routes } from './routes'
 import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+import { response } from './helpers/response'
 dotenv.config()
 
 function bootstrap() {
@@ -14,6 +15,10 @@ function bootstrap() {
 
   Routes.forEach((route) => {
     app.use(route)
+  })
+
+  app.use('*', (req: Request, res: Response) => {
+    return response(req, res).json(null, 404, 'Not Found')
   })
 }
 

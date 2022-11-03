@@ -3,10 +3,13 @@ FROM node:19
 WORKDIR /dev-code
 COPY package.json .
 COPY .env.example .env.example
-RUN npm install
+RUN npm i -g pnpm
+RUN pnpm i
 COPY . app
 WORKDIR /dev-code/app
 CMD npm run build
 COPY .env.example dist/.env
-CMD node dist/src/main.js
-EXPOSE 3000 3000
+WORKDIR /dev-code/app/dist
+CMD npm run migrate:up
+CMD node src/main.js
+EXPOSE 3000
