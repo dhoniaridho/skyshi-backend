@@ -70,12 +70,10 @@ export class TodoController {
       )
     }
 
-    const data = await todoRepository.getOne(+req.params.id)
-
     const update = await todoRepository.updateOne(+req.params.id, value)
 
     // Handle 404
-    if (!data)
+    if (!update)
       return response(req, res).json(
         {},
         'Not Found',

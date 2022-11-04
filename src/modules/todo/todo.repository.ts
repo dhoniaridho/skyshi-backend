@@ -16,10 +16,7 @@ export class TodoRepository {
 
   async createOne(todo: Todo) {
     const data = await Todo.query().insert(todo)
-    const createdData = await Todo.query()
-      .findById(data.$id())
-      .havingNull('deleted_at')
-    return createdData
+    return data
   }
 
   async getOne(id: number) {
@@ -28,19 +25,18 @@ export class TodoRepository {
   }
 
   async deleteOne(id: number) {
-    const data = await Todo.query().findById(id).havingNull('deleted_at')
-    if (!data) return null
-
-    const update = await Todo.query().updateAndFetchById(id, {
-      deleted_at: DateTime.now().toJSDate()
-    })
+    const update = Todo.query()
+      .havingNull('deleted_at')
+      .updateAndFetchById(id, {
+        deleted_at: DateTime.now().toJSDate()
+      })
     return update
   }
 
   async updateOne(id: number, payload: Todo) {
-    const data = await Todo.query().findById(id).havingNull('deleted_at')
-    if (!data) return null
-    const update = await Todo.query().updateAndFetchById(id, payload)
+    const update = await Todo.query()
+      .havingNull('deleted_at')
+      .updateAndFetchById(id, payload)
     return update
   }
 }
