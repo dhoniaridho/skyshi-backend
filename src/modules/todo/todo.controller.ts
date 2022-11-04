@@ -59,7 +59,7 @@ export class TodoController {
       return response(req, res).json(
         null,
         'Not Found',
-        `Activity with ID ${+req.params.id} Not Found`,
+        `Todo with ${+req.params.id} Not Found`,
         404
       )
 
@@ -75,7 +75,7 @@ export class TodoController {
       return response(req, res).json(
         null,
         'Not Found',
-        `Activity with ID ${+req.params.id} Not Found`,
+        `Todo with ${+req.params.id} Not Found`,
         404
       )
 
@@ -91,7 +91,7 @@ export class TodoController {
       return response(req, res).json(
         null,
         'Not Found',
-        `Activity with ID ${+req.params.id} Not Found`,
+        `Todo with ${+req.params.id} Not Found`,
         404
       )
     }
