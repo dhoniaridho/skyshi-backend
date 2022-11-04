@@ -4,8 +4,7 @@ ENV NODE_VERSION 19.0.0
 
 COPY . .
 WORKDIR /
-RUN npm install pm2 -g
-RUN npm i -g pnpm
+RUN npm i -g pnpm && npm i pm2 -g
 RUN pnpm i && pnpm build
 ENV NODE_ENV production
 ENV MYSQL_HOST 127.0.0.1
