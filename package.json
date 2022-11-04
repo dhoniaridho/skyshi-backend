@@ -9,7 +9,8 @@
     "build": "rm -rf dist && tsc -b",
     "migrate:up": "knex migrate:up",
     "migrate:down": "knex migrate:down",
-    "migrate:prod": "knex migrate:latest --knexfile dist/knexfile.js"
+    "migrate": "knex migrate:latest --knexfile dist/knexfile.js",
+    "start-docker": "pm2-docker start pm2_configs/config.json"
   },
   "keywords": [],
   "author": "dhoniaridho@gmail.com",
