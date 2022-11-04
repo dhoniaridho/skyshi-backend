@@ -62,7 +62,8 @@ export class ActivityController {
       return response(req, res).json(
         null,
         'Not Found',
-        `Activity with ID ${+req.params.id} Not Found`
+        `Activity with ID ${+req.params.id} Not Found`,
+        404
       )
     return response(req, res).json(data)
   }
@@ -81,5 +82,35 @@ export class ActivityController {
         404
       )
     return response(req, res).json({}, 'Success', 'Success')
+  }
+
+  async updateOne(req: Request, res: Response) {
+    // Repository
+    const activity = new ActivityRepository()
+    const { error, value } = schema.validate(req.body, { abortEarly: false })
+    const data = await activity.getOne(+req.params.id)
+    const updated = await activity.updateOne(+req.params.id, value)
+
+    if (error) {
+      // validate any errors
+      if (error) {
+        return response(req, res).json(
+          mapError(error.message),
+          'Bad Request',
+          'Bad Request',
+          400
+        )
+      }
+    }
+
+    // Handle 404
+    if (!data)
+      return response(req, res).json(
+        null,
+        'Not Found',
+        `Activity with ID ${+req.params.id} Not Found`,
+        404
+      )
+    return response(req, res).json(updated, 'Success', 'Success')
   }
 }

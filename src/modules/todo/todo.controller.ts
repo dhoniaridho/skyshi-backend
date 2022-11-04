@@ -17,7 +17,7 @@ export class TodoController {
 
     try {
       const value = await schema.validateAsync(req.body)
-      const data = await todoRepository.createOne(value)
+      const data: any = await todoRepository.createOne(value)
 
       if (!value.title) {
         return response(req, res).json(
@@ -36,7 +36,15 @@ export class TodoController {
         )
       }
 
-      return response(req, res).json(data, 'Success', 'Success', 201)
+      return response(req, res).json(
+        {
+          ...data,
+          is_active: Boolean(data?.is_active)
+        },
+        'Success',
+        'Success',
+        201
+      )
     } catch (error: any) {
       if (error) {
         console.log(error.message)
