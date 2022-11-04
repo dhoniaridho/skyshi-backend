@@ -10,7 +10,7 @@ export const schema = Joi.object({
     }),
   title: [Joi.required().label('title cannot be null')],
   priority: Joi.string().allow(null),
-  is_active: Joi.boolean().allow(null)
+  is_active: Joi.boolean().allow(null).default(true)
 })
 
 export const schemaUpdate = Joi.object({
