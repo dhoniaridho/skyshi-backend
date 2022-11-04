@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express'
 import { Modules } from './modules/app.module'
 import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 import { response } from './helpers/response'
+import cors from 'cors'
 dotenv.config()
 
 function bootstrap() {
@@ -12,6 +13,12 @@ function bootstrap() {
   })
 
   app.use(express.json())
+  app.use(
+    cors({
+      allowedHeaders: '*',
+      origin: '*'
+    })
+  )
 
   Modules.forEach((module) => {
     app.use(module)
