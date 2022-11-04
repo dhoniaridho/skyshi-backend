@@ -14,25 +14,25 @@ export class TodoRepository {
     })
   }
 
-  async createOne(todo: Todo) {
-    const data = await Todo.query().insert(todo)
+  createOne(todo: Todo) {
+    const data = Todo.query().insert(todo)
     return data
   }
 
-  async getOne(id: number) {
-    const data = await Todo.query().findById(id).whereNull('deleted_at')
+  getOne(id: number) {
+    const data = Todo.query().findById(id).whereNull('deleted_at')
     return data
   }
 
-  async deleteOne(id: number) {
+  deleteOne(id: number) {
     const update = Todo.query().whereNull('deleted_at').updateAndFetchById(id, {
       deleted_at: DateTime.now().toJSDate()
     })
     return update
   }
 
-  async updateOne(id: number, payload: Todo) {
-    const update = await Todo.query()
+  updateOne(id: number, payload: Todo) {
+    const update = Todo.query()
       .whereNull('deleted_at')
       .updateAndFetchById(id, payload)
     return update

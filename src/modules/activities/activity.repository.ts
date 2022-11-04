@@ -2,19 +2,19 @@ import { Activity } from './activity.model'
 import { DateTime } from 'luxon'
 
 export class ActivityRepository {
-  async getAll() {
-    const data = await Activity.query().whereNull('deleted_at')
+  getAll() {
+    const data = Activity.query().whereNull('deleted_at')
     return data
   }
-  async getOne(id: number) {
-    const data = await Activity.query()
+  getOne(id: number) {
+    const data = Activity.query()
       .whereNull('deleted_at')
       .where('id', id)
       .first()
     return data
   }
-  async deleteOne(id: number) {
-    const data = await Activity.query()
+  deleteOne(id: number) {
+    const data = Activity.query()
       .whereNull('deleted_at')
       .updateAndFetchById(id, {
         deleted_at: DateTime.now().toJSDate()
@@ -28,8 +28,8 @@ export class ActivityRepository {
       .updateAndFetchById(id, payload)
     return data
   }
-  async createOne(activity: Activity) {
-    const data = await Activity.query().insert(activity)
+  createOne(activity: Activity) {
+    const data = Activity.query().insert(activity)
     return data
   }
 }
