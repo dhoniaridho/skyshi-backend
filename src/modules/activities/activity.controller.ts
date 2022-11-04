@@ -22,27 +22,12 @@ export class ActivityController {
 
     const { error, value } = schema.validate(req.body, { abortEarly: false })
 
-    if (!value.title)
-      return response(req, res).json(
-        {},
-        'Bad Request',
-        'title cannot be null',
-        400
-      )
-    if (!value.email)
-      return response(req, res).json(
-        {},
-        'Bad Request',
-        'email cannot be null',
-        400
-      )
-
     // validate any errors
     if (error) {
       return response(req, res).json(
-        mapError(error.message),
+        {},
         'Bad Request',
-        'Bad Request',
+        mapError(error.message)[0],
         400
       )
     }
@@ -100,32 +85,6 @@ export class ActivityController {
       abortEarly: false
     })
     const data = await activity.updateOne(+req.params.id, value)
-
-    if (!value.title)
-      return response(req, res).json(
-        {},
-        'Bad Request',
-        'title cannot be null',
-        400
-      )
-    if (!value.email)
-      return response(req, res).json(
-        {},
-        'Bad Request',
-        'email cannot be null',
-        400
-      )
-
-    // validate any errors
-    if (error) {
-      return response(req, res).json(
-        mapError(error.message),
-        'Bad Request',
-        'Bad Request',
-        400
-      )
-    }
-
     // Handle 404
     if (!data)
       return response(req, res).json(
@@ -134,6 +93,12 @@ export class ActivityController {
         `Activity with ID ${+req.params.id} Not Found`,
         404
       )
+
+    // validate any errors
+    if (error) {
+      return response(req, res).json({}, 'Bad Request', 'Bad Request', 400)
+    }
+
     return response(req, res).json(data, 'Success', 'Success')
   }
 }

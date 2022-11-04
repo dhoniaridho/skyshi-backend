@@ -5,7 +5,7 @@ export class TodoRepository {
   async getAll(query: number | null) {
     const todos = Todo.query()
       .withGraphFetched('activity_group')
-      .havingNull('deleted_at')
+      .whereNull('deleted_at')
 
     if (!query) return await todos
 
@@ -20,22 +20,20 @@ export class TodoRepository {
   }
 
   async getOne(id: number) {
-    const data = await Todo.query().findById(id).havingNull('deleted_at')
+    const data = await Todo.query().findById(id).whereNull('deleted_at')
     return data
   }
 
   async deleteOne(id: number) {
-    const update = Todo.query()
-      .havingNull('deleted_at')
-      .updateAndFetchById(id, {
-        deleted_at: DateTime.now().toJSDate()
-      })
+    const update = Todo.query().whereNull('deleted_at').updateAndFetchById(id, {
+      deleted_at: DateTime.now().toJSDate()
+    })
     return update
   }
 
   async updateOne(id: number, payload: Todo) {
     const update = await Todo.query()
-      .havingNull('deleted_at')
+      .whereNull('deleted_at')
       .updateAndFetchById(id, payload)
     return update
   }

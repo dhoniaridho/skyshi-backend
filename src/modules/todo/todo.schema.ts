@@ -8,7 +8,7 @@ export const schema = Joi.object({
       const activity = await new ActivityRepository().getOne(value)
       if (!activity) throw new Error('Invalid activity group id')
     }),
-  title: Joi.string().required(),
+  title: [Joi.required().label('title cannot be null')],
   priority: Joi.string().allow(null),
   is_active: Joi.boolean().allow(null)
 })

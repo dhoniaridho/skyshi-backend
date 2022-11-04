@@ -1,3 +1,4 @@
+import Joi from 'joi'
 import type { NextFunction, Request, Response } from 'express'
 import { response } from '../../helpers/response'
 import { mapError } from '../../helpers/validation'
@@ -15,26 +16,18 @@ export class TodoController {
   async createOne(req: Request, res: Response) {
     const todoRepository = new TodoRepository()
 
+    if (!req.body.activity_group_id) {
+      return response(req, res).json(
+        {},
+        'Bad Request',
+        'activity_group_id cannot be null',
+        400
+      )
+    }
+
     try {
       const value = await schema.validateAsync(req.body)
       const data: any = await todoRepository.createOne(value)
-
-      if (!value.title) {
-        return response(req, res).json(
-          null,
-          'Bad Request',
-          'title cannot be null',
-          400
-        )
-      }
-      if (!value.activity_group_id) {
-        return response(req, res).json(
-          null,
-          'Bad Request',
-          'activity_group_id cannot be null',
-          400
-        )
-      }
 
       return response(req, res).json(
         {
@@ -48,9 +41,9 @@ export class TodoController {
     } catch (error: any) {
       if (error) {
         return response(req, res).json(
-          mapError(error.message),
+          {},
           'Bad Request',
-          'You provided invalid data',
+          mapError(error.message)[0],
           400
         )
       }
