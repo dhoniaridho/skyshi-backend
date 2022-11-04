@@ -16,6 +16,11 @@ services:
     depends_on:
       - mysqldb
     build: ./
+    command:
+    [
+      "pnpm",
+      "migrate:prod"
+    ]
     restart: unless-stopped
     env_file: ./.env
     ports:

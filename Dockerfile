@@ -9,6 +9,5 @@ ENV MYSQL_PORT 3306
 ENV MYSQL_DBNAME ahmadridhoni
 ENV MYSQL_USER root
 ENV MYSQL_PASSWORD root
-RUN pnpm migrate:prod
 CMD node dist/src/main.js
 EXPOSE 3030
