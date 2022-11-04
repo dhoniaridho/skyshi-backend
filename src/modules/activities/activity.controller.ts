@@ -25,15 +25,16 @@ export class ActivityController {
     if (error) {
       return response(req, res).json(
         mapError(error.message),
-        400,
-        'Validation failed'
+        'Bad Request',
+        'Bad Request',
+        400
       )
     }
 
     const data = await activity.createOne(value)
     const createdData = await activity.getOne(data.$id())
 
-    return response(req, res).json(createdData, 201)
+    return response(req, res).json(createdData, 'Success')
   }
 
   async getOne(req: Request, res: Response) {
@@ -45,7 +46,7 @@ export class ActivityController {
     if (!data)
       return response(req, res).json(
         null,
-        404,
+        'Not Found',
         `Activity with ID ${+req.params.id} Not Found`
       )
     return response(req, res).json(data)
@@ -60,13 +61,9 @@ export class ActivityController {
     if (!data)
       return response(req, res).json(
         null,
-        404,
+        'Not Found',
         `Activity with ID ${+req.params.id} Not Found`
       )
-    return response(req, res).json(
-      null,
-      200,
-      `Data with id  ${req.params.id} was deleted`
-    )
+    return response(req, res).json({})
   }
 }

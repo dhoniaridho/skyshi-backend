@@ -31,7 +31,7 @@ function bootstrap() {
   })
 
   app.get('*', (req: Request, res: Response) => {
-    return response(req, res).json(null, 404, 'Not Found')
+    return response(req, res).json(null, 'Not Found', 'Not Found', 404)
   })
 }
 

@@ -18,12 +18,21 @@ export class TodoController {
     try {
       const value = await schema.validateAsync(req.body)
       const data = await todoRepository.createOne(value)
-      return response(req, res).json(data, 201)
+
+      if (!value.title)
+        return response(req, res).json('Bad Request', 'title cannot be null')
+      if (!value.activity_group_id)
+        return response(req, res).json(
+          'Bad Request',
+          'activity_group_id cannot be null'
+        )
+
+      return response(req, res).json(data, 'Success')
     } catch (error: any) {
       if (error) {
         return response(req, res).json(
           mapError(error.message),
-          400,
+          'Bad Request',
           'You provided invalid data'
         )
       }
@@ -37,8 +46,9 @@ export class TodoController {
     if (error) {
       return response(req, res).json(
         mapError(error.message),
-        400,
-        'Validation failed'
+        'Bad Request',
+        'Bad Request',
+        400
       )
     }
 
@@ -48,11 +58,12 @@ export class TodoController {
     if (!data)
       return response(req, res).json(
         null,
-        404,
-        `Activity with ID ${+req.params.id} Not Found`
+        'Not Found',
+        `Activity with ID ${+req.params.id} Not Found`,
+        404
       )
 
-    return response(req, res).json(data, 200)
+    return response(req, res).json(data, 'Success')
   }
 
   async getOne(req: Request, res: Response) {
@@ -63,11 +74,12 @@ export class TodoController {
     if (!data)
       return response(req, res).json(
         null,
-        404,
-        `Activity with ID ${+req.params.id} Not Found`
+        'Not Found',
+        `Activity with ID ${+req.params.id} Not Found`,
+        404
       )
 
-    return response(req, res).json(data, 200)
+    return response(req, res).json(data)
   }
 
   async deleteOne(req: Request, res: Response) {
@@ -78,14 +90,15 @@ export class TodoController {
     if (!data) {
       return response(req, res).json(
         null,
-        404,
-        `Activity with ID ${+req.params.id} Not Found`
+        'Not Found',
+        `Activity with ID ${+req.params.id} Not Found`,
+        404
       )
     }
 
     return response(req, res).json(
       null,
-      200,
+      'Success',
       `Data with id  ${+req.params.id} was deleted`
     )
   }
