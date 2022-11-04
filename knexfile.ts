@@ -23,7 +23,7 @@ const config: KnexConfig = {
     },
     migrations: {
       tableName: 'migration',
-      directory: path.resolve(__dirname, 'src', 'databases', 'migrations')
+      directory: path.resolve(__dirname, 'src', 'migrations')
     }
   },
 
@@ -42,7 +42,7 @@ const config: KnexConfig = {
     },
     migrations: {
       tableName: 'migration',
-      directory: path.resolve(__dirname, 'src', 'databases', 'migrations')
+      directory: path.resolve(__dirname, 'src', 'migrations')
     }
   },
 
@@ -61,7 +61,7 @@ const config: KnexConfig = {
     },
     migrations: {
       tableName: 'migration',
-      directory: path.resolve(__dirname, 'src', 'databases', 'migrations')
+      directory: path.resolve(__dirname, 'src', 'migrations')
     }
   }
 }
