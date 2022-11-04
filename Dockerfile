@@ -9,7 +9,7 @@ COPY . app
 WORKDIR /app
 CMD npm run build
 COPY .env.example dist/.env
-WORKDIR /dev-code/app/dist
+WORKDIR /app/dist
 CMD npm run migrate:prod
 CMD node src/main.js
 EXPOSE 3000
