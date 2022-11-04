@@ -1,6 +1,10 @@
 FROM alpine:3.15
 
 ENV NODE_VERSION 19.0.0
+ENV NPM_VERSION 8.19.2
+
+RUN apk add nodejs
+RUN apk add npm
 
 COPY . .
 WORKDIR /
