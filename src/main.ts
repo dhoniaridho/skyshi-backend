@@ -17,11 +17,11 @@ function bootstrap() {
     app.use(module)
   })
 
-  app.use('*', (req: Request, res: Response) => {
+  app.get('*', (req: Request, res: Response) => {
     return response(req, res).json(null, 404, 'Not Found')
   })
 
-  app.use('/', (req: Request, res: Response) => {
+  app.get('/', (req: Request, res: Response) => {
     return res.json({
       message: 'Welcome to API TODO'
     })
