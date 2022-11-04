@@ -9,7 +9,7 @@ export const schema = Joi.object({
       if (!activity) throw new Error('Invalid activity group id')
     }),
   title: [Joi.required().label('title cannot be null')],
-  priority: Joi.string().allow(null),
+  priority: Joi.string().allow(null).default('very-high'),
   is_active: Joi.boolean().allow(null).default(true)
 })
 
