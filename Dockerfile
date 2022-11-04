@@ -1,14 +1,13 @@
-FROM alpine:3.15
+FROM node:19-bullseye
 
 ENV NODE_VERSION 19.0.0
-ENV NPM_VERSION 8.19.2
 
-RUN apk add nodejs
-RUN apk add npm
+RUN npm prune --production
 
 COPY . .
 WORKDIR /
-RUN npm i -g pnpm && npm i pm2 -g
+RUN npm install pm2 -g
+RUN npm i -g pnpm
 RUN pnpm i && pnpm build
 ENV NODE_ENV production
 ENV MYSQL_HOST 127.0.0.1
