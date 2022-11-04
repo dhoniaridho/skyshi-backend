@@ -1,7 +1,7 @@
 import { ActivityRepository } from './activity.repository'
 import { Request, Response } from 'express'
 import { response } from '../../helpers/response'
-import { schema } from './activity.schema'
+import { schema, updateSchema } from './activity.schema'
 import { mapError } from '../../helpers/validation'
 
 export class ActivityController {
@@ -23,14 +23,14 @@ export class ActivityController {
 
     if (!value.title)
       return response(req, res).json(
-        null,
+        {},
         'Bad Request',
         'title cannot be null',
         400
       )
     if (!value.email)
       return response(req, res).json(
-        null,
+        {},
         'Bad Request',
         'email cannot be null',
         400
@@ -87,26 +87,41 @@ export class ActivityController {
   async updateOne(req: Request, res: Response) {
     // Repository
     const activity = new ActivityRepository()
-    const { error, value } = schema.validate(req.body, { abortEarly: false })
+    const { error, value } = updateSchema.validate(req.body, {
+      abortEarly: false
+    })
     const data = await activity.getOne(+req.params.id)
     const updated = await activity.updateOne(+req.params.id, value)
 
+    if (!value.title)
+      return response(req, res).json(
+        {},
+        'Bad Request',
+        'title cannot be null',
+        400
+      )
+    if (!value.email)
+      return response(req, res).json(
+        {},
+        'Bad Request',
+        'email cannot be null',
+        400
+      )
+
+    // validate any errors
     if (error) {
-      // validate any errors
-      if (error) {
-        return response(req, res).json(
-          mapError(error.message),
-          'Bad Request',
-          'Bad Request',
-          400
-        )
-      }
+      return response(req, res).json(
+        mapError(error.message),
+        'Bad Request',
+        'Bad Request',
+        400
+      )
     }
 
     // Handle 404
     if (!data)
       return response(req, res).json(
-        null,
+        {},
         'Not Found',
         `Activity with ID ${+req.params.id} Not Found`,
         404
