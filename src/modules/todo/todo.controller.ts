@@ -19,28 +19,32 @@ export class TodoController {
       const value = await schema.validateAsync(req.body)
       const data = await todoRepository.createOne(value)
 
-      if (!value.title)
+      if (!value.title) {
         return response(req, res).json(
           null,
           'Bad Request',
           'title cannot be null',
           400
         )
-      if (!value.activity_group_id)
+      }
+      if (!value.activity_group_id) {
         return response(req, res).json(
           null,
           'Bad Request',
           'activity_group_id cannot be null',
           400
         )
+      }
 
       return response(req, res).json(data, 'Success', 'Success', 201)
     } catch (error: any) {
       if (error) {
+        console.log(error.message)
         return response(req, res).json(
           mapError(error.message),
           'Bad Request',
-          'You provided invalid data'
+          'You provided invalid data',
+          400
         )
       }
     }

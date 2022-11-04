@@ -21,6 +21,15 @@ export class ActivityRepository {
       .first()
     return data
   }
+  async updateOne(id: number, payload: { email?: string; title?: string }) {
+    const data = await Activity.query()
+      .updateAndFetchById(id, {
+        deleted_at: DateTime.now().toJSDate(),
+        ...payload
+      })
+      .first()
+    return data
+  }
   async createOne(activity: Activity) {
     const data = await Activity.query().insert(activity)
     return data
