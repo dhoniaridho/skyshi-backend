@@ -18,11 +18,11 @@ $ pnpm install
 
 ```bash
 # watch mode (development)
-$ npm run start:dev
+$ pnpm run start:dev
 
 # production mode
-$ npm run start:prod
+$ pnpm run start:prod
 
 # migrate up
-$ npm run migrate:up
+$ pnpm run migrate:up
 ```
