@@ -21,6 +21,7 @@ $ pnpm install
 $ pnpm run start:dev
 
 # production mode
+$ pnpm build
 $ pnpm run start:prod
 
 # migrate up
