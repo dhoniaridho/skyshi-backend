@@ -3,6 +3,8 @@ import { Modules } from './modules/app.module'
 import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 import { response } from './helpers/response'
 import cors from 'cors'
+import compression from 'compression'
+
 dotenv.config()
 
 function bootstrap() {
@@ -12,6 +14,7 @@ function bootstrap() {
     console.log('Server is started at port 3030')
   })
 
+  app.use(compression())
   app.use(express.json())
   app.use(
     cors({
