@@ -1,15 +1,10 @@
-FROM node:19-bullseye
-
-ENV NODE_VERSION 19.0.0
-
-RUN npm prune --production
+FROM node:19
 
 COPY . .
 WORKDIR /
 RUN npm install pm2 -g
 RUN npm i -g pnpm
 RUN pnpm i && pnpm build
-ENV NODE_ENV production
 ENV MYSQL_HOST 127.0.0.1
 ENV MYSQL_PORT 3306
 ENV MYSQL_DBNAME ahmadridhoni
