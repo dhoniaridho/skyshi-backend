@@ -99,8 +99,7 @@ export class ActivityController {
     const { error, value } = updateSchema.validate(req.body, {
       abortEarly: false
     })
-    const data = await activity.getOne(+req.params.id)
-    const updated = await activity.updateOne(+req.params.id, value)
+    const data = await activity.updateOne(+req.params.id, value)
 
     if (!value.title)
       return response(req, res).json(
@@ -135,6 +134,6 @@ export class ActivityController {
         `Activity with ID ${+req.params.id} Not Found`,
         404
       )
-    return response(req, res).json(updated, 'Success', 'Success')
+    return response(req, res).json(data, 'Success', 'Success')
   }
 }
