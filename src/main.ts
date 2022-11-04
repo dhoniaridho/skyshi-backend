@@ -7,8 +7,8 @@ dotenv.config()
 function bootstrap() {
   const app = express()
 
-  app.listen(3000, '0.0.0.0', () => {
-    console.log('Server is started at port 3000')
+  app.listen(3030, '0.0.0.0', () => {
+    console.log('Server is started at port 3030')
   })
 
   app.use(express.json())

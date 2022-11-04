@@ -6,7 +6,7 @@
   "scripts": {
     "start:dev": "nodemon src/main.ts",
     "start:prod": "node dist/src/main.js",
-    "build": "tsc -b",
+    "build": "rm -rf dist && tsc -b",
     "migrate:up": "knex migrate:up",
     "migrate:down": "knex migrate:down",
     "migrate:prod": "knex migrate:latest --knexfile dist/knexfile.js"
