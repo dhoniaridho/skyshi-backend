@@ -1,4 +1,6 @@
-FROM node:19
+FROM alpine:3.15
+
+ENV NODE_VERSION 19.0.0
 
 COPY . .
 WORKDIR /
