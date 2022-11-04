@@ -1,15 +1,16 @@
 import Knex from 'knex'
 import * as dotenv from 'dotenv'
+import { Config } from '../config/env'
 dotenv.config()
 
 const DB = Knex({
-  client: process.env.DB_CONNECTION ?? 'mysql',
+  client: Config.DB.client,
   connection: {
-    host: process.env.DB_HOST ?? '127.0.0.1',
-    port: +(process.env.DB_PORT ?? '3306'),
-    database: process.env.DB_DATABASE ?? 'ahmadridhoni',
-    user: process.env.DB_USERNAME ?? 'root',
-    password: process.env.DB_PASSWORD ?? 'root'
+    host: Config.DB.connection.host,
+    port: Config.DB.connection.port,
+    database: Config.DB.connection.database,
+    user: Config.DB.connection.user,
+    password: Config.DB.connection.password
   }
 })
 

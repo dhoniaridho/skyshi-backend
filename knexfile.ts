@@ -1,8 +1,7 @@
 // Update with your config settings.
 
 import path from 'path'
-import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
-dotenv.config({ path: '.env' })
+import { Config } from './src/config/env'
 
 interface KnexConfig {
   [key: string]: object
@@ -10,13 +9,13 @@ interface KnexConfig {
 
 const config: KnexConfig = {
   development: {
-    client: process.env.DB_CONNECTION ?? 'mysql',
+    client: Config.DB.client,
     connection: {
-      host: process.env.DB_HOST ?? '127.0.0.1',
-      port: process.env.DB_PORT ?? '3306',
-      database: process.env.DB_DATABASE ?? 'ahmadridhoni',
-      user: process.env.DB_USERNAME ?? 'root',
-      password: process.env.DB_PASSWORD ?? 'root'
+      host: Config.DB.connection.host,
+      port: Config.DB.connection.port,
+      database: Config.DB.connection.database,
+      user: Config.DB.connection.user,
+      password: Config.DB.connection.password
     },
     pool: {
       min: 2,
@@ -29,13 +28,13 @@ const config: KnexConfig = {
   },
 
   staging: {
-    client: process.env.DB_CONNECTION ?? 'mysql',
+    client: Config.DB.client,
     connection: {
-      host: process.env.DB_HOST ?? '127.0.0.1',
-      port: process.env.DB_PORT ?? '3306',
-      database: process.env.DB_DATABASE ?? 'ahmadridhoni',
-      user: process.env.DB_USERNAME ?? 'root',
-      password: process.env.DB_PASSWORD ?? 'root'
+      host: Config.DB.connection.host,
+      port: Config.DB.connection.port,
+      database: Config.DB.connection.database,
+      user: Config.DB.connection.user,
+      password: Config.DB.connection.password
     },
     pool: {
       min: 2,
@@ -48,13 +47,13 @@ const config: KnexConfig = {
   },
 
   production: {
-    client: process.env.DB_CONNECTION ?? 'mysql',
+    client: Config.DB.client,
     connection: {
-      host: process.env.DB_HOST ?? '127.0.0.1',
-      port: process.env.DB_PORT ?? '3306',
-      database: process.env.DB_DATABASE ?? 'ahmadridhoni',
-      user: process.env.DB_USERNAME ?? 'root',
-      password: process.env.DB_PASSWORD ?? 'root'
+      host: Config.DB.connection.host,
+      port: Config.DB.connection.port,
+      database: Config.DB.connection.database,
+      user: Config.DB.connection.user,
+      password: Config.DB.connection.password
     },
     pool: {
       min: 2,
