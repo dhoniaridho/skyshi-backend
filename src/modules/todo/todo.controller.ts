@@ -20,14 +20,21 @@ export class TodoController {
       const data = await todoRepository.createOne(value)
 
       if (!value.title)
-        return response(req, res).json('Bad Request', 'title cannot be null')
+        return response(req, res).json(
+          null,
+          'Bad Request',
+          'title cannot be null',
+          400
+        )
       if (!value.activity_group_id)
         return response(req, res).json(
+          null,
           'Bad Request',
-          'activity_group_id cannot be null'
+          'activity_group_id cannot be null',
+          400
         )
 
-      return response(req, res).json(data, 'Success')
+      return response(req, res).json(data, 'Success', 'Success', 201)
     } catch (error: any) {
       if (error) {
         return response(req, res).json(
@@ -52,18 +59,20 @@ export class TodoController {
       )
     }
 
-    const data = await todoRepository.updateOne(+req.params.id, value)
+    const data = await todoRepository.getOne(+req.params.id)
+
+    const update = await todoRepository.updateOne(+req.params.id, value)
 
     // Handle 404
     if (!data)
       return response(req, res).json(
-        null,
+        {},
         'Not Found',
-        `Todo with ${+req.params.id} Not Found`,
+        `Todo with ID ${+req.params.id} Not Found`,
         404
       )
 
-    return response(req, res).json(data, 'Success')
+    return response(req, res).json(update, 'Success')
   }
 
   async getOne(req: Request, res: Response) {
@@ -73,9 +82,9 @@ export class TodoController {
     // Handle 404
     if (!data)
       return response(req, res).json(
-        null,
+        {},
         'Not Found',
-        `Todo with ${+req.params.id} Not Found`,
+        `Todo with ID ${+req.params.id} Not Found`,
         404
       )
 
@@ -89,17 +98,17 @@ export class TodoController {
     // Handle 404
     if (!data) {
       return response(req, res).json(
-        null,
+        {},
         'Not Found',
-        `Todo with ${+req.params.id} Not Found`,
+        `Todo with ID ${+req.params.id} Not Found`,
         404
       )
     }
 
     return response(req, res).json(
-      null,
+      {},
       'Success',
-      `Data with id  ${+req.params.id} was deleted`
+      `Data with id ID ${+req.params.id} was deleted`
     )
   }
 }

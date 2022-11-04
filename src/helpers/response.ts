@@ -4,7 +4,7 @@ export function response(req: Request, res: Response, next?: NextFunction) {
   return {
     json: <T = any>(
       data: T,
-      status = 'Status',
+      status = 'Success',
       message = 'Success',
       statusCode = 200
     ) => {
