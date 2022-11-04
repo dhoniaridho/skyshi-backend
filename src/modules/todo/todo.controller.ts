@@ -47,7 +47,6 @@ export class TodoController {
       )
     } catch (error: any) {
       if (error) {
-        console.log(error.message)
         return response(req, res).json(
           mapError(error.message),
           'Bad Request',

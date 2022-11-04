@@ -3,6 +3,7 @@ import { Request, Response } from 'express'
 import { response } from '../../helpers/response'
 import { schema, updateSchema } from './activity.schema'
 import { mapError } from '../../helpers/validation'
+import { DateTime } from 'luxon'
 
 export class ActivityController {
   private activity = new ActivityRepository()
@@ -47,9 +48,17 @@ export class ActivityController {
     }
 
     const data = await activity.createOne(value)
-    const createdData = await activity.getOne(data.$id())
 
-    return response(req, res).json(createdData, 'Success', 'Success', 201)
+    return response(req, res).json(
+      {
+        ...data,
+        created_at: DateTime.now().toISO(),
+        updated_at: DateTime.now().toISO()
+      },
+      'Success',
+      'Success',
+      201
+    )
   }
 
   async getOne(req: Request, res: Response) {
