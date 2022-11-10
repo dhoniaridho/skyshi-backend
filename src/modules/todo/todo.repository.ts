@@ -5,13 +5,13 @@ export class TodoRepository {
   async getAll(query: number | null) {
     const todos = Todo.query()
       .withGraphFetched('activity_group')
-      .whereNull('deleted_at')
+      .whereNull('deleted_at').limit(20)
 
     if (!query) return await todos
 
     return await todos.where({
       activity_group_id: query
-    })
+    }).whereNull('deleted_at').limit(20)
   }
 
   createOne(todo: Todo) {
