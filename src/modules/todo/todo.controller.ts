@@ -26,8 +26,15 @@ export class TodoController {
       }
     }
 
+    const { activity_group_id, is_active, priority, title } = req.body
+
     try {
-      const data: any = await todoRepository.createOne(req.body)
+      const data: any = await todoRepository.createOne({
+        activity_group_id,
+        title,
+        is_active: is_active ?? true,
+        priority: priority ?? ' very-high'
+      })
       return response(req, res).json(
         {
           ...data,
