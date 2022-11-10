@@ -4,10 +4,7 @@ import { Todo } from './todo.model'
 export class TodoRepository {
   async getAll(query: number | null) {
     if (query) {
-      const todos = Todo.query()
-        .withGraphFetched('activity_group')
-        .whereNull('deleted_at')
-        .limit(10)
+      const todos = Todo.query().whereNull('deleted_at').limit(10)
       return todos
     }
     return Todo.query()
