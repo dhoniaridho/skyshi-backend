@@ -1,6 +1,13 @@
 import { DateTime } from 'luxon'
 import { Todo } from './todo.model'
 
+interface CreateTodo {
+  title: string
+  activity_group_id: number
+  priority: string
+  is_active: boolean
+}
+
 export class TodoRepository {
   async getAll(query: number | null) {
     if (!query) {
@@ -16,7 +23,7 @@ export class TodoRepository {
       .limit(10)
   }
 
-  createOne(todo: Todo) {
+  createOne(todo: CreateTodo) {
     const data = Todo.query().insert(todo)
     return data
   }

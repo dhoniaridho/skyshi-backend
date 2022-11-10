@@ -17,9 +17,6 @@ export class ActivityController {
     return response(req, res).json(activities, 'Success')
   }
   async create(req: Request, res: Response) {
-    // Repository
-    const activity = new ActivityRepository()
-
     const { error, value } = schema.validate(req.body, { abortEarly: false })
 
     // validate any errors
@@ -32,7 +29,7 @@ export class ActivityController {
       )
     }
 
-    const data = await activity.createOne(value)
+    const data = await new ActivityRepository().createOne(value)
 
     return response(req, res).json(
       {
