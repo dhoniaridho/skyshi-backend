@@ -33,7 +33,7 @@ export class TodoController {
         activity_group_id,
         title,
         is_active: is_active ?? true,
-        priority: priority ?? ' very-high'
+        priority: priority ?? 'very-high'
       })
       return response(req, res).json(
         {
