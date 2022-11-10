@@ -10,7 +10,7 @@
     "migrate:up": "knex migrate:up",
     "migrate:down": "knex migrate:down",
     "migrate": "knex migrate:latest --knexfile dist/knexfile.js",
-    "start-docker": "pm2-docker start dist/src/main.js -i 4"
+    "start-docker": "pm2-docker start dist/src/main.js -i max"
   },
   "keywords": [],
   "author": "dhoniaridho@gmail.com",
