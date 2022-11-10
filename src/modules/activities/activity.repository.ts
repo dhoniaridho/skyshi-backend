@@ -1,3 +1,4 @@
+import { CreateUser } from './activity.schema'
 import { Activity } from './activity.model'
 import { DateTime } from 'luxon'
 
@@ -28,7 +29,7 @@ export class ActivityRepository {
       .updateAndFetchById(id, payload)
     return data
   }
-  createOne(activity: Activity) {
+  createOne(activity: CreateUser) {
     const data = Activity.query().insert(activity)
     return data
   }

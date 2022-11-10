@@ -1,35 +1,34 @@
 import { ActivityRepository } from './activity.repository'
 import { Request, Response } from 'express'
 import { response } from '../../helpers/response'
-import { schema, updateSchema } from './activity.schema'
+import { validate, updateSchema } from './activity.schema'
 import { mapError } from '../../helpers/validation'
 import { DateTime } from 'luxon'
 
 export class ActivityController {
-  private activity = new ActivityRepository()
-
-  constructor() {
-    this.activity = new ActivityRepository()
-  }
-
   async getAll(req: Request, res: Response) {
     const activities = await new ActivityRepository().getAll()
     return response(req, res).json(activities, 'Success')
   }
   async create(req: Request, res: Response) {
-    const { error, value } = schema.validate(req.body, { abortEarly: false })
-
     // validate any errors
-    if (error) {
-      return response(req, res).json(
-        {},
-        'Bad Request',
-        mapError(error.message)[0],
-        400
-      )
+    if (!validate(req.body)) {
+      if (validate.errors) {
+        return response(req, res).json(
+          {},
+          'Bad Request',
+          validate.errors[0].message,
+          400
+        )
+      }
     }
 
-    const data = await new ActivityRepository().createOne(value)
+    const { email, title } = req.body
+
+    const data = await new ActivityRepository().createOne({
+      email,
+      title
+    })
 
     return response(req, res).json(
       {
