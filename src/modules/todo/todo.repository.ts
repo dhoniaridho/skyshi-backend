@@ -3,10 +3,11 @@ import { Todo } from './todo.model'
 
 export class TodoRepository {
   async getAll(query: number | null) {
-    if (query) {
+    if (!query) {
       const todos = Todo.query().whereNull('deleted_at').limit(10)
       return todos
     }
+
     return Todo.query()
       .where({
         activity_group_id: query
