@@ -5,9 +5,6 @@ import { Activity } from '../activities/activity.model'
 Model.knex(DB)
 
 export class Todo extends Model {
-  status(status: any): boolean {
-    throw new Error('Method not implemented.')
-  }
   static get tableName() {
     return 'todos'
   }

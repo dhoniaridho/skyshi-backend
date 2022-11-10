@@ -1,9 +1,8 @@
-import Joi from 'joi'
 import type { NextFunction, Request, Response } from 'express'
 import { response } from '../../helpers/response'
 import { mapError } from '../../helpers/validation'
 import { TodoRepository } from './todo.repository'
-import { schema, schemaUpdate } from './todo.schema'
+import { schema, schemaUpdate, validate } from './todo.schema'
 
 export class TodoController {
   async getAll(req: Request, res: Response, next: NextFunction) {
@@ -16,18 +15,19 @@ export class TodoController {
   async createOne(req: Request, res: Response) {
     const todoRepository = new TodoRepository()
 
-    if (!req.body.activity_group_id) {
-      return response(req, res).json(
-        {},
-        'Bad Request',
-        'activity_group_id cannot be null',
-        400
-      )
+    if (!validate(req.body)) {
+      if (validate.errors) {
+        return response(req, res).json(
+          {},
+          'Bad Request',
+          validate.errors[0].message,
+          400
+        )
+      }
     }
 
     try {
-      const value = await schema.validateAsync(req.body)
-      const data: any = await todoRepository.createOne(value)
+      const data: any = await todoRepository.createOne(req.body)
 
       return response(req, res).json(
         {

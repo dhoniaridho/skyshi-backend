@@ -9,6 +9,8 @@ specifiers:
   '@types/node': ^18.11.9
   '@typescript-eslint/eslint-plugin': ^5.42.0
   '@typescript-eslint/parser': ^5.0.0
+  ajv: ^8.11.0
+  ajv-errors: ^3.0.0
   compression: ^1.7.4
   cors: ^2.8.5
   dotenv: ^16.0.3
@@ -29,6 +31,8 @@ specifiers:
   typescript: '*'
 
 dependencies:
+  ajv: 8.11.0
+  ajv-errors: 3.0.0_ajv@8.11.0
   compression: 1.7.4
   cors: 2.8.5
   dotenv: 16.0.3
@@ -426,6 +430,14 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
     dev: true
+
+  /ajv-errors/3.0.0_ajv@8.11.0:
+    resolution: {integrity: sha512-V3wD15YHfHz6y0KdhYFjyy9vWtEVALT9UrxfN3zqlI6dMioHnJrqOYfyPKol3oqrnCM9uwkcdCwkJ0WUcbLMTQ==}
+    peerDependencies:
+      ajv: ^8.0.1
+    dependencies:
+      ajv: 8.11.0
+    dev: false
 
   /ajv/6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
