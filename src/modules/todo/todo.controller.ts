@@ -2,7 +2,7 @@ import type { NextFunction, Request, Response } from 'express'
 import { response } from '../../helpers/response'
 import { mapError } from '../../helpers/validation'
 import { TodoRepository } from './todo.repository'
-import { schema, schemaUpdate, validate } from './todo.schema'
+import { schemaUpdate, validate } from './todo.schema'
 
 export class TodoController {
   async getAll(req: Request, res: Response, next: NextFunction) {
@@ -28,11 +28,10 @@ export class TodoController {
 
     try {
       const data: any = await todoRepository.createOne(req.body)
-
       return response(req, res).json(
         {
           ...data,
-          is_active: Boolean(data?.is_active)
+          is_active: Boolean(data?.is_active ?? 1)
         },
         'Success',
         'Success',
