@@ -3,15 +3,19 @@ import { Todo } from './todo.model'
 
 export class TodoRepository {
   async getAll(query: number | null) {
-    const todos = Todo.query()
-      .withGraphFetched('activity_group')
-      .whereNull('deleted_at').limit(20)
-
-    if (!query) return await todos
-
-    return await todos.where({
-      activity_group_id: query
-    }).whereNull('deleted_at').limit(20)
+    if (query) {
+      const todos = Todo.query()
+        .withGraphFetched('activity_group')
+        .whereNull('deleted_at')
+        .limit(10)
+      return todos
+    }
+    return Todo.query()
+      .where({
+        activity_group_id: query
+      })
+      .whereNull('deleted_at')
+      .limit(10)
   }
 
   createOne(todo: Todo) {

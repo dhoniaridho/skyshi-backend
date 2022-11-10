@@ -3,7 +3,7 @@ import { DateTime } from 'luxon'
 
 export class ActivityRepository {
   getAll() {
-    const data = Activity.query().whereNull('deleted_at').limit(20)
+    const data = Activity.query().whereNull('deleted_at').limit(10)
     return data
   }
   getOne(id: number) {
